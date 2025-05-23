@@ -12,10 +12,13 @@ export async function getAllArticles() {
   return articles;
 }
 
-export async function getArticleBySlug(slug: string) {
-  console.log(slug, "slug")
+export async function getArticleBySlug(slug: string, status: string) {
+  console.log(slug, "slug");
   const article = await client.collection("articles").find({
-    filters: { slug: { $eq: slug } },
+    filters: {
+      slug: { $eq: slug },
+    },
+    status: status as "draft" | "published" | undefined,
   });
   return article;
 }
